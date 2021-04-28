@@ -8,7 +8,7 @@
 #include <sys/syscall.h>
 #define nthreads 4
 #define tcost 25
-spthread_mutex_t mut;
+pthread_mutex_t mut;
 int recursos = 1000;
 
 int decrease_count(int count){
@@ -31,12 +31,11 @@ int increase_count(int count){
 	return 0;
 }
 
-void* monitor(void){
+void* monitor(){
 	pid_t pid;
 	pid = syscall(SYS_gettid);
 	printf("hilo: %d usa %d recursos", pid,tcost);
-	printf
-	while(decresase_count(tcost)!=0){
+	while(decrease_count(tcost)!=0){
 		NULL;
 	}
 	decrease_count(tcost);
@@ -46,25 +45,32 @@ void* monitor(void){
 	
 }
 
-int main(){
-	int i;
-	FILE *filepointer;
-	pthread *hilos;
-	filepointer = fopen("inciso2.txt","w");
-	if(filepointer==NULL){
-		printf("error en archivo"){
-			exit(1);
-		}
+int main() {
+	FILE *fptr;
+	fptr = fopen("inciso2.txt", "w");
+
+	if (fptr == NULL)
+	{
+		printf("Error!");
+		exit(1);
 	}
-	fprintf(filepointer,"Iniciando programa\n");
-	for(i =0;i<nthreads;i++){
-		pthread(&hilos[i],NULL,monitor,NULL);
-		sleep(1);
+
+	fprintf(fptr, "Iniciando programa\n");
+	int j;
+	pthread_t *thread;
+
+	available_resources = 20;
+
+	fprintf(fptr, "Creando %d threads\n", THREADS);
+	for (j = 0; j < THREADS; j++) {
+		pthread_create(&thread[j], NULL, threads_to_do, NULL);
 	}
-	fprintf(filepointer,"Esperando hilos");
-	for(i=0;i<nthreads,i++){
-		pthread_join(hilos[i],NULL);
+
+	fprintf(fptr, "Esperando threads \n");
+	for (j = 0; j < THREADS; j++) {
+		pthread_join(thread[j], NULL);
 	}
-	fclose(filepointer);
+
+	fprintf(fptr, "Fin del programa \n");
+	fclose(fptr);
 	return 0;
-}
