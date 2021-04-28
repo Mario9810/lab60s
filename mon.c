@@ -62,7 +62,7 @@ int main() {
 
 	fprintf(filepointer, "Creando %d threads\n", nthreads);
 	for (j = 0; j < nthreads; j++) {
-		pthread_create(&thread[j], NULL, monitor, NULL);
+		pthread_create(&hilos[j], NULL, monitor, NULL);
 	}
 
 	fprintf(filepointer, "Esperando threads \n");
