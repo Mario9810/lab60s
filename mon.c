@@ -46,31 +46,30 @@ void* monitor(){
 }
 
 int main() {
-	FILE *fptr;
-	fptr = fopen("inciso2.txt", "w");
+	FILE *filepointer;
+	filepointer = fopen("inciso2.txt", "w");
 
-	if (fptr == NULL)
+	if (filepointer == NULL)
 	{
 		printf("Error!");
 		exit(1);
 	}
 
-	fprintf(fptr, "Iniciando programa\n");
+	fprintf(filepointer, "Iniciando programa\n");
 	int j;
-	pthread_t *thread;
+	pthread_t *hilos;
 
-	available_resources = 20;
 
-	fprintf(fptr, "Creando %d threads\n", THREADS);
-	for (j = 0; j < THREADS; j++) {
-		pthread_create(&thread[j], NULL, threads_to_do, NULL);
+	fprintf(filepointer, "Creando %d threads\n", nthreads);
+	for (j = 0; j < nthreads; j++) {
+		pthread_create(&thread[j], NULL, monitor, NULL);
 	}
 
-	fprintf(fptr, "Esperando threads \n");
-	for (j = 0; j < THREADS; j++) {
-		pthread_join(thread[j], NULL);
+	fprintf(filepointer, "Esperando threads \n");
+	for (j = 0; j < nthreads; j++) {
+		pthread_join(hilos[j], NULL);
 	}
 
-	fprintf(fptr, "Fin del programa \n");
-	fclose(fptr);
+	fprintf(filepointer, "Fin del programa \n");
+	fclose(filepointer);
 	return 0;
