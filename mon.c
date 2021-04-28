@@ -17,7 +17,7 @@ int decrease_count(int count){
 	}
 	else{
 		pthread_mutex_lock(&mut);
-		printf("se consumiran %d recursos",count);
+		printf("se consumiran %d recursos\n",count);
 		recursos -= count;
 		pthread_mutex_unlock(&mut);
 		return 0;
@@ -25,9 +25,10 @@ int decrease_count(int count){
 }
 
 int increase_count(int count){
-	printf("se devolverán %d recursos", count);
 	pthread_mutex_lock(&mut);
+	printf("se devolverán %d recursos\n", count);
 	recursos += count;
+	pthread_mutex_unlock(&mut);
 	return 0;
 }
 
@@ -69,7 +70,6 @@ int main() {
 	for (j = 0; j < nthreads; j++) {
 		pthread_join(hilos[j], NULL);
 	}
-
-	fprintf(filepointer, "Fin del programa \n");
 	fclose(filepointer);
 	return 0;
+}

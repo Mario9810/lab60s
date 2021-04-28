@@ -1,0 +1,3 @@
+Iniciando programa
+Creando 4 threads
+Esperando threads
